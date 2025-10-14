@@ -1,3 +1,9 @@
 body {
     background: #1c5d90;
+    margin: 0;
+}
+.container-header{
+    height: 169px;
+    width: 100%;
+    background-color: #FED201;
 }
