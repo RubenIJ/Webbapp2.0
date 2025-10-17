@@ -1,5 +1,20 @@
 <?php
+session_start();
 
+$servername = "db";
+$dbname = "mydatabase";
+$username = "user";
+$password = "password";
+
+try {
+    $dsn = "mysql:host={$servername};dbname={$dbname};charset=utf8mb4";
+    $conn = new PDO($dsn, $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Verbinding OK
+    //echo "Connected successfully";
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
 
 ?>
 <!doctype html>
@@ -11,16 +26,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Darko's</title>
 </head>
-<main>
-    <body>
+<body>
     <header>
         <div class="container-header">
             <img src="images/logo.png" alt="Logo Darko's">
-            <a href="">Login</a>
-            <a href="">Home</a>
+            <a href="login.php">Login</a>
+            <a href="index.php">Home</a>
         </div>
     </header>
     <p>Test</p>
-</main>
 </body>
 </html>
