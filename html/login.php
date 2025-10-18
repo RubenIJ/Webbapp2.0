@@ -1,13 +1,62 @@
 <?php
+session_start();
+
+$host = "db";
+$dbname = "mydatabase";
+$username = "user";
+$password = "password";
+
+try {
+    // charset toegevoegd voor correcte encoding
+    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database verbinding mislukt: " . $e->getMessage());
+}
+
+// login
+if (isset($_POST['login'])) {
+    $gebruikersnaam = $_POST['username'];
+    $wachtwoord = $_POST['password'];
+
+    $stmt = $conn->prepare("SELECT * FROM users WHERE gebruikersnaam = :gebruikersnaam LIMIT 1");
+    $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
+    $stmt->execute();
+    $gebruiker = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($gebruiker) {
+        if (!password_get_info($gebruiker['wachtwoord'])['algo']) {
+            $hashedPassword = password_hash($gebruiker['wachtwoord'], PASSWORD_DEFAULT);
+            $updateStmt = $conn->prepare("UPDATE users SET wachtwoord = :wachtwoord WHERE gebruikersnaam = :gebruikersnaam");
+            $updateStmt->bindParam(':wachtwoord', $hashedPassword);
+            $updateStmt->bindParam(':gebruikersnaam', $gebruikersnaam);
+            $updateStmt->execute();
+            $gebruiker['wachtwoord'] = $hashedPassword;
+        }
+
+        // Wachtwoord controleren
+        if (password_verify($wachtwoord, $gebruiker['wachtwoord'])) {
+            // Optioneel: sessie-id vernieuwen voor extra veiligheid
+            session_regenerate_id(true);
+            $_SESSION['username'] = $gebruikersnaam;
+            header("Location: admin.php");  // Redirect naar admin.php
+            exit();
+        } else {
+            echo "Ongeldige gebruikersnaam of wachtwoord.";
+        }
+    } else {
+        echo "Gebruiker niet gevonden.";
+    }
+}
 ?>
+
 <!doctype html>
-<html lang="en">
+<html lang="nl">
 <head>
-    <link rel="stylesheet" href="css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Darko's login pagina</title>
+    <title>Inloggen</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header>
@@ -17,4 +66,17 @@
         <a href="index.php">Home</a>
     </div>
 </header>
+<h1>Login Formulier</h1>
+<form action="login.php" method="post">
+    <div class="container">
+        <label for="uname">Gebruikersnaam</label>
+        <input type="text" name="username" placeholder="Voer gebruikersnaam in" required autocomplete="off">
+
+        <label for="psw">Wachtwoord</label>
+        <input type="password" name="password" placeholder="Voer wachtwoord in" required autocomplete="off">
+
+        <input type="submit" name="login" value="Inloggen">
+    </div>
+</form>
 </body>
+</html>
