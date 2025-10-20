@@ -7,3 +7,8 @@ body {
     width: 100%;
     background-color: #FED201;
 }
+@media (max-width: 640px){
+    .search-form { flex-direction: column; }
+    .search-form input, .search-form button, .container input, .container button { width: 100%; }
+    table { display:block; overflow-x:auto; }
+}

@@ -1,5 +1,11 @@
 <?php
 session_start();
+//kijken of de user wel is ongelogd
+if (empty($_SESSION['username'])) {
+    header('Location: login.php');
+    exit;
+}
+
 
 $servername = "db";
 $username = "user";
@@ -144,6 +150,6 @@ try {
     <?php endif; ?>
     </tbody>
 </table>
-<a href="login.php">Uitloggen</a>
+<a href="uitloggen.php">Uitloggen</a>
 </body>
 </html>
