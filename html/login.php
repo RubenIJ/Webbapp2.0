@@ -7,7 +7,6 @@ $username = "user";
 $password = "password";
 
 try {
-    // charset toegevoegd voor correcte encoding
     $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
@@ -24,6 +23,7 @@ if (isset($_POST['login'])) {
     $stmt->execute();
     $gebruiker = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    //Hashen van wachtwoorden
     if ($gebruiker) {
         if (!password_get_info($gebruiker['wachtwoord'])['algo']) {
             $hashedPassword = password_hash($gebruiker['wachtwoord'], PASSWORD_DEFAULT);
@@ -36,7 +36,6 @@ if (isset($_POST['login'])) {
 
         // Wachtwoord controleren
         if (password_verify($wachtwoord, $gebruiker['wachtwoord'])) {
-            // Optioneel: sessie-id vernieuwen voor extra veiligheid
             session_regenerate_id(true);
             $_SESSION['username'] = $gebruikersnaam;
             header("Location: admin.php");  // Redirect naar admin.php

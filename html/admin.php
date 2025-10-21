@@ -19,13 +19,13 @@ try {
 }
 
 // Dingen toevoegen
-if (isset($_POST['add'])) {
+if (isset($_POST['add'])) { //wanneer ingedrukt voer uit
     $naam = htmlspecialchars(($_POST['naam']));
     $omschrijving = htmlspecialchars(($_POST['omschrijving']));
-    $prijs = filter_var($_POST['prijs'], FILTER_VALIDATE_FLOAT);
+    $prijs = filter_var($_POST['prijs'], FILTER_VALIDATE_FLOAT); // variablen invul velt pakken
 
     if (!empty($naam) && !empty($omschrijving) && $prijs !== false) {
-        $sql = "INSERT INTO menu (naam, omschrijving, prijs) VALUES (:naam, :omschrijving, :prijs)";
+        $sql = "INSERT INTO menu (naam, omschrijving, prijs) VALUES (:naam, :omschrijving, :prijs)"; //variabelen toevoegen
         $stmt = $conn->prepare($sql);
         if ($stmt->execute([':naam' => $naam, ':omschrijving' => $omschrijving, ':prijs' => $prijs])) {
             $feedback = "Succesvol toegevoegd!";
