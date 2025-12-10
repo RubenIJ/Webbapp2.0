@@ -1,0 +1,12 @@
+body{
+    margin: 0;
+
+
+}
+.nav-box {
+    background-color: #ffde00;
+    height: 150px;
+    width: 100%;
+    display: flex;
+
+}
