@@ -12,8 +12,11 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
     <title>Darko's</title>
+    <?php
+    include_once 'header.php'; //Roept de header.php pagina op en laat het op de pagina zien
+    ?>
 </head>
 <body>
-<p> test</p>
+
 </body>
 </html>

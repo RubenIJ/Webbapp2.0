@@ -14,9 +14,13 @@
     <div class="nav-image">
         <img src="images/logo.png" alt="Logo Darko's">
     </div>
-    <div class="nav">
-        <p href="index.php">Home</p>
-        <p href="login.php">Login</p>
+    <div class="nav-link">
+        <div class="nav1">
+        <a href="index.php">Home</a>
+        </div>
+        <div>
+        <a href="login.php">Login</a>
+        </div>
     </div>
 </div>
 </body>
