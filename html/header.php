@@ -1,4 +1,10 @@
-<?php ?>
+<?php
+require 'database.php';
+
+$db = new Database();   // class oproepen
+$pdo = $db->connect();  // functie oproepen = connectie maken
+
+?>
 
 <!doctype html>
 <html lang="en">
