@@ -17,6 +17,20 @@ session_start();
     ?>
 </head>
 <body>
+<h1>Bekijk ons menu: </h1>
+<?php
+$sql = "SELECT naam, omschrijving, prijs FROM menu";
+$stmt = $pdo->query($sql);
 
+$rows = $stmt->fetchAll(); // Haalt alle data uit de database en zet het in de variable rows
+
+if (count($rows) > 0) { // count telt hoeveel rijen er in de database staan het vergelijkt het met het getal 0, als het meer dan 0 is gaat de foreach loop lopen
+    foreach ($rows as $row) {
+        echo "" . $row["naam"] . " - " . $row["omschrijving"] . " - " . $row["prijs"]  . "€" . "<br>"; //dit laat alle rijen zien met de data: naam, omschrijving en prijs
+    }
+} else {
+    echo "0 results";
+}
+?>
 </body>
 </html>
