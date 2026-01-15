@@ -1,4 +1,7 @@
-<?php ?>
+<?php
+ob_start();
+session_start();
+?>
 
 
 <!doctype html>
@@ -12,6 +15,10 @@
     <title>Document</title>
     <?php
     include_once 'header.php';
+
+    if (!isset($_SESSION['adminjanee']) or $_SESSION['adminjanee'] == false) {
+        header('Location: login.php');
+    }
     ?>
 </head>
 <body>
