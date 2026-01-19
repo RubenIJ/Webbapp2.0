@@ -32,7 +32,7 @@ session_start();
 
     if (count($rows) > 0) { // count telt hoeveel rijen er in de database staan het vergelijkt het met het getal 0, als het meer dan 0 is gaat de foreach loop lopen
         foreach ($rows as $row) {
-            echo "" . $row["naam"] . " - " . $row["omschrijving"] . " - " . $row["prijs"]  . "€" . "<br>"; //dit laat alle rijen zien met de data: naam, omschrijving en prijs
+            echo "" . $row["naam"] . " - " . $row["omschrijving"] . " - " . $row["prijs"] . "€ " . "<a href='edit.php?id=" . $row["id"] . "'>Aanpassen</a><br>"; //dit laat alle rijen zien met de data: naam, omschrijving en prijs
         }
     } else {
         echo "0 results";
