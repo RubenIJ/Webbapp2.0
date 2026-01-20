@@ -42,6 +42,8 @@ if (isset($_POST['naam'], $_POST['omschrijving'], $_POST['prijs'])) {
     <input name="omschrijving" type="text" placeholder="Omschrijving">
     <input name="prijs" type="text" placeholder="Prijs">
     <button type="submit">Toevoegen</button>
+
 </form>
+<a href="admin.php">Terug</a>
 </body>
 </html>
